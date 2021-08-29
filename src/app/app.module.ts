@@ -7,9 +7,9 @@ import { MaterialModule } from './core/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './state/employee.reducer';
+import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { EmployeeEffects } from "./state/employee.effects";
-// import { actionReducerMap } from './store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { EmployeeEffects } from "./state/employee.effects";
     HttpClientModule,
     MaterialModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     StoreModule.forRoot({ employee: reducer }),
     EffectsModule.forRoot([EmployeeEffects])
   ],

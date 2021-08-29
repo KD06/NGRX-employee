@@ -6,21 +6,22 @@ import * as EmployeeActions from '../state/employee.action';
 export interface state{
     employee: Employee[],
     isLoadSuccess: boolean,
-    isLoadError: boolean
+    isLoadError: boolean,
+    isEmployeeInEditMode: boolean
 }
+
 export const initialState: state = {
-    employee:[{ "id": 0,
-    "email": '',
-    "first_name": '',
-    "last_name": '',
-    "avatar": ''}],
+    employee:[],
     isLoadSuccess: false,
-    isLoadError: false
+    isLoadError: false,
+    isEmployeeInEditMode: false
 };
 
+let UUID = 0;
 const employeeReducer = createReducer(
     initialState,
     on(EmployeeActions.storeEmployee, (state, { employeeData }) => {
+        UUID = employeeData.length;
         return {
             ...state,
             employee: employeeData,
@@ -29,10 +30,10 @@ const employeeReducer = createReducer(
         }
     }),
     on(EmployeeActions.addEmployee, (state, { employee }) => {
-        employee.id = 1; // Get Unique Values
+        const id = ++UUID+'';
         return {
             ...state,
-            recipes: [...state.employee, employee]
+            employee: [...state.employee, {id, ...employee}]
         }
     }),
     on(EmployeeActions.updateEmployee, (state, { id, employee }) => {
@@ -47,6 +48,12 @@ const employeeReducer = createReducer(
             ...state,
             employee: updatedEmployeeData
         };
+    }),
+    on(EmployeeActions.isEmployeeInEditMode, (state, {inEditMode}) => {
+        return {
+            ...state,
+            isEmployeeInEditMode: inEditMode
+        }
     }),
     on(EmployeeActions.removeEmployee, (state, { id }) => {
         return {

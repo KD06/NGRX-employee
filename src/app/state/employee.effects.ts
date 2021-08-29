@@ -13,10 +13,7 @@ export class EmployeeEffects {
         this.apiService.getEmployees().pipe(
           map((employeeData: any) => { 
             return fromEmployeeActions.storeEmployee({ employeeData: employeeData.data})}
-            ),
-          // catchError(error =>
-          //   of(fromProductActions.getEmployeeError())
-          // )
+            )
         )
       )
     )
