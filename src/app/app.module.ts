@@ -5,6 +5,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './core/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './state/employee.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { EmployeeEffects } from "./state/employee.effects";
+// import { actionReducerMap } from './store/app.reducer';
 
 @NgModule({
   declarations: [
@@ -14,7 +19,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     HttpClientModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot({ employee: reducer }),
+    EffectsModule.forRoot([EmployeeEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-<!-- <div *ngIf="employees | async">
+<!-- <div *ngIf="employees">
   <table>
     <thead>
       <th>ID</th>
@@ -8,45 +8,55 @@
       <th>Avatar</th>
     </thead>
     <tbody>
-      <tr *ngFor="let employee of employees | async">
+      <tr *ngFor="let employee of employees">
         <td>{{employee.id}}</td>
         <td>{{employee.email}}</td>
         <td>{{employee.first_name}}</td>
         <td>{{employee.last_name}}</td>
         <td><img [src]="employee.avatar" alt="Employee Image"></td>
       </tr>
-    </tbody></table>
+    </tbody>
+  </table>
 </div> -->
 
+<div *ngIf="employees.length" class="table_container">
+  <table mat-table [dataSource]="employees" class="mat-elevation-z8">
 
-<table mat-table [dataSource]="employeeData" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> ID. </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> Email </th>
-    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-  </ng-container>
+    <ng-container matColumnDef="first_name">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
+    </ng-container>
 
-  <ng-container matColumnDef="first_name">
-    <th mat-header-cell *matHeaderCellDef> First Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.first_name}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="last_name">
-    <th mat-header-cell *matHeaderCellDef> Last Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
-  </ng-container>
+    <ng-container matColumnDef="last_name">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.last_name}} </td>
+    </ng-container>
 
 
-  <ng-container matColumnDef="avatar">
-    <th mat-header-cell *matHeaderCellDef> Avatar </th>
-    <td mat-cell *matCellDef="let element"><img [src]="element.avatar"></td>
-  </ng-container>
+    <ng-container matColumnDef="avatar">
+      <th mat-header-cell *matHeaderCellDef> Avatar </th>
+      <td mat-cell *matCellDef="let element"><img [src]="element.avatar"></td>
+    </ng-container> -->
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element" class="action-link"> 
+        <a (click)="editEmployee(element.id, element)">Edit</a> | 
+        <a (click)="removeEmployee(element.id)">Delete</a>  
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

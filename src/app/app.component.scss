@@ -1,3 +1,9 @@
+.table_container{
+  display: flex;
+  justify-content: center;
+}
+
 table {
-    width: 100%;
+    width: 80vw;
+    height: 80vh;
   }
